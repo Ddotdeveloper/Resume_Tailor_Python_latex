@@ -1,0 +1,19 @@
+# Ignore all LaTeX build files
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Ignore PDFs (optional — remove this if you want PDFs in repo)
+*.pdf
+
+# Keep the output folder tracked
+!output/
+
+# Ignore everything inside output
+output/*
+
+# But keep .tex files inside output
+!output/*.tex
