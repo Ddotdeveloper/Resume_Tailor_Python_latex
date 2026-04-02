@@ -1,0 +1,113 @@
+\documentclass[letterpaper, {{FONT_SIZE}}pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+{{MARGIN_LINES}}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.05in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[itemsep={{ITEM_SEP}}pt, parsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+% --- Header ---
+\begin{center}
+    \textbf{\Huge \scshape {{NAME}}} \\ \vspace{5pt}
+    \small
+    \faPhone\ {{PHONE}} \quad $|$ \quad
+    \faEnvelope\ \href{mailto:{{{EMAIL}}}{\underline{{{EMAIL}}}}} \quad $|$ \quad
+    \faLinkedin\ \href{{{LINKEDIN_URL}}}{\underline{LinkedIn}} \quad $|$ \quad
+    \faGithub\ \href{{{GITHUB_URL}}}{\underline{GitHub}} \quad $|$ \quad
+    \faCode\ \href{{{LEETCODE_URL}}}{\underline{LeetCode}}
+\end{center}
+
+% --- Education ---
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {{{EDU_INSTITUTION}}}{{{EDU_DATES}}}
+      {{{EDU_DEGREE}} $|$ CGPA: {{EDU_CGPA}}}{{{EDU_LOCATION}}}
+  \resumeSubHeadingListEnd
+
+% --- Summary ---
+\section{Summary}
+\small{
+{{SUMMARY}}
+}
+
+% --- Experience ---
+\section{Experience}
+  \resumeSubHeadingListStart
+{{EXPERIENCE_BLOCK}}
+  \resumeSubHeadingListEnd
+
+% --- Projects ---
+\section{Projects}
+  \resumeSubHeadingListStart
+{{PROJECTS_BLOCK}}
+  \resumeSubHeadingListEnd
+
+% --- Technical Skills ---
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+{{SKILLS_BLOCK}}
+    }}
+ \end{itemize}
+
+% --- Achievements ---
+\section{Achievements}
+  \resumeItemListStart
+{{ACHIEVEMENTS_BLOCK}}
+  \resumeItemListEnd
+
+\end{document}
