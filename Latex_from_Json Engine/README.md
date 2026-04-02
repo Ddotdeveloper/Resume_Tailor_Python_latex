@@ -128,3 +128,4 @@ python generate.py data.json              # Generate output/resume.tex
 python generate.py data.json --pdf        # Also compile to PDF
 python generate.py data.json --no-fit     # Skip one-page auto-fitting
 python generate.py data_backend.json --out backend.tex --pdf  # Role-specific
+

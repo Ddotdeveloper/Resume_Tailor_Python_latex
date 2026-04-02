@@ -1,0 +1,105 @@
+context: we have a python script that will parse this json to create ourself a tailored resume according to the job descritption given below 
+
+Input: 
+coommand: python3 generate.py data_{company_name}.json --out divay_resume_{company_name}.tex
+Job Description 
+   {
+    {{Insert Here}}
+   }
+
+
+Json Template: 
+    data.json template (according to this keep the words lenght same)
+    {
+    "NAME": "Divay Aggarwal",
+    "PHONE": "+91 9588524463",
+    "EMAIL": "divay958@gmail.com",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/divay060203/",
+    "GITHUB_URL": "https://github.com/Ddotdeveloper",
+    "LEETCODE_URL": "https://leetcode.com/divay_garg/",
+
+    "EDU_INSTITUTION": "Netaji Subhas University of Technology",
+    "EDU_DATES": "January 2021 -- May 2025",
+    "EDU_DEGREE": "B.Tech in Electronics \\& Communication (AI \\& ML)",
+    "EDU_CGPA": "8.07",
+    "EDU_LOCATION": "New Delhi, India",
+
+    "SUMMARY": "Results-driven Software Engineer with expertise in systems development using \\textbf{C++ algorithms} and \\textbf{Python scripting}. Proven experience in the \\textbf{Systems} domain, architecting scalable \\textbf{Linux foundations} and mission-critical infrastructure software systems processing high-volume diagnostics. Proficient in \\textbf{Systems Programming}, \\textbf{Operating Systems}, and \\textbf{Bash Script automation}. Passionate about maintaining code quality through \\textbf{Test-Driven Development (TDD)} and applying core OS principles to solve complex concurrency challenges.",
+
+    "experience": [
+        {
+        "title": "Software Engineer",
+        "dates": "December 2025 -- Present",
+        "company": "Reddoorz",
+        "location": "Noida, India",
+        "bullets": [
+            "Spearheading the system-level architecture of \\textbf{\"Redbooks\"}, a mission-critical financial ledger platform facilitating automated accounting and auditing for over \\textbf{\\$5M+ in monthly transactions}.",
+            "Engineered complex \\textbf{Python modules} to encapsulate \"posting criteria logic,\" automating the generation of \\textbf{AR/AP Invoices, Journal Entries, and Credit Memos} with strict \\textbf{ACID compliance}.",
+            "Designed resilient \\textbf{ETL pipelines} using \\textbf{Python automation tools} to synchronize \\textbf{50,000+ daily records} from mid-office servers to the Redbooks, ensuring 99.9\\% data consistency.",
+            "Optimized \\textbf{PostgreSQL} performance via compound indexing and query refactoring, reducing average query execution time by \\textbf{35\\%} during peak loads.",
+            "Championed \\textbf{Test-Driven Development (TDD)} by implementing comprehensive \\textbf{pytest} test suites, achieving \\textbf{90\\% code coverage} and significantly reducing production bugs."
+        ]
+        },
+        {
+        "title": "Software Engineer Intern",
+        "dates": "August 2025 -- November 2025",
+        "company": "Reddoorz",
+        "location": "Noida, India",
+        "bullets": [
+            "Architected a \\textbf{Smart Budget Management System} for Linux platforms, devising a custom \\textbf{Weighted Moving Average (WMA)} forecasting formula to predict expected billing with \\textbf{92\\% accuracy}.",
+            "Engineered granular \\textbf{Role-Based Access Control (RBAC)}, defining distinct dashboard views and permissions for \\textbf{Super Admins, CEOs, and Managers} to oversee budget allotments.",
+            "Implemented \\textbf{Smart Audit Logs} for compliance and integrated \\textbf{automated email alerts} via \\textbf{Python} to notify stakeholders of projected budget overruns, cutting excess spend by 15\\%.",
+            "Designed interactive \\textbf{financial visualizations} to display real-time spending trends, optimizing \\textbf{data structure} aggregations to handle complex reporting data efficiently."
+        ]
+        }
+    ],
+
+    "projects": [
+        {
+        "title": "LinuxFS (Custom Filesystem Monitor)",
+        "tech": "C++, Python, Linux OS, Bash, ext4",
+        "bullets": [
+            "Architected a systems-level storage module using \\textbf{C++}, utilizing \\textbf{Linux kernel interfaces} to generate complex filesystem analytics for virtualized environments.",
+            "Implemented an \\textbf{automated} debugging tool using \\textbf{Python} and \\textbf{Bash}, offloading heavy analysis tasks to reduce system diagnostic times by \\textbf{40\\%}.",
+            "Secured subsystems with \\textbf{Linux} and \\textbf{ext4} permissions, ensuring strict data isolation and reliability."
+        ]
+        },
+        {
+        "title": "SysMonitor (Performance Analysis Tool)",
+        "tech": "Python, C++, Linux OS, Bash, pytest",
+        "bullets": [
+            "Developed high-concurrency \\textbf{Linux systems} supporting OS operations, analyzed via \\textbf{Python} scripts and \\textbf{Bash}, handling up to 1,000 concurrent processes in load tests.",
+            "Optimized \\textbf{filesystem} performance using \\textbf{caching strategies} and enforced data integrity via \\textbf{C++} algorithms."
+        ]
+        }
+    ],
+
+    "skills": [
+        {"label": "Languages", "value": "C++, Ruby, JavaScript (ES6+), Python, Rust, SQL"},
+        {"label": "Backend Frameworks", "value": "Ruby on Rails, Node.js, Express.js, Sidekiq"},
+        {"label": "Databases \\& Caching", "value": "PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch"},
+        {"label": "Tools \\& DevOps", "value": "Git, GitHub, Docker, AWS (S3), Postman, Linux, CI/CD, WebSockets"},
+        {"label": "Core Concepts", "value": "Data Structures \\& Algorithms, REST APIs, MVC Architecture, System Design, OOPs"}
+    ],
+
+    "achievements": [
+        "\\textbf{Global Rank Top 11\\%} on LeetCode (Rating: 1714), solving \\textbf{800+} algorithmic problems across platforms.",
+        "\\textbf{CodeChef 3-Star Coder} (Rating: 1730), ranked in the top tier of competitive programmers globally.",
+        "Successfully completed the NPTEL \\textbf{Ethical Hacking} course coordinated by IIT Kharagpur.",
+        "Topped the \\textbf{Cognitive Psychology} course coordinated by IIT Guwahati, highlighting analytical versatility."
+    ]
+    }
+Company_name: Nasuni 
+Instructions
+Change Only Summary Project (compeletely)
+Little revamp in experience 
+keep the words length exactly same 
+Give me python command for the company name that i give you above
+also the touch command to create the new file data_{company_name}.json 
+
+give me all of that 
+Output: 
+    json file with it's touch command 
+    python command in format given above 
+    do not be vague pls to keep it ats friendly  use sensible projects and keywords please this should make sense in the end please 
+
