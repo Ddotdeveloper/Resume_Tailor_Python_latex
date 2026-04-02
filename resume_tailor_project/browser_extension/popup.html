@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { width: 320px; padding: 15px; font-family: Arial, sans-serif; }
+        input, button, textarea { width: 100%; padding: 8px; margin-top: 10px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        #output { margin-top: 15px; font-size: 12px; background: #f4f4f4; padding: 10px; border-radius: 4px; display: none; }
+        code { color: #d63384; font-family: monospace; display: block; margin-top: 5px; }
+        /* Hidden by default */
+        #manualJd { display: none; resize: vertical; } 
+    </style>
+</head>
+<body>
+    <h3>Resume Tailor</h3>
+    <p style="font-size: 12px;">1. Highlight JD on the page.<br>2. Enter company name.<br>3. Click Generate.</p>
+    
+    <input type="text" id="companyName" placeholder="e.g., Nasuni">
+    
+    <textarea id="manualJd" rows="5" placeholder="Auto-extract blocked! Paste the JD here..."></textarea>
+    
+    <button id="generateBtn">Extract JD & Generate Prompt</button>
+    
+    <div id="output"></div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
