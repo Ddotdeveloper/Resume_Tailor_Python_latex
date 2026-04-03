@@ -1,0 +1,89 @@
+{
+    "NAME": "Divay Aggarwal",
+    "PHONE": "+91 9588524463",
+    "EMAIL": "divay958@gmail.com",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/divay060203/",
+    "GITHUB_URL": "https://github.com/Ddotdeveloper",
+    "LEETCODE_URL": "https://leetcode.com/divay_garg/",
+    "EDU_INSTITUTION": "Netaji Subhas University of Technology",
+    "EDU_DATES": "January 2021 -- May 2025",
+    "EDU_DEGREE": "B.Tech in Electronics \\& Communication (AI \\& ML)",
+    "EDU_CGPA": "8.07",
+    "EDU_LOCATION": "New Delhi, India",
+    "SUMMARY": "Results-driven Software Engineer with expertise in \\textbf{Linux-based systems} development using \\textbf{C++} and \\textbf{Python}. Proven experience in architecting scalable \\textbf{Linux foundations} and mission-critical infrastructure. Proficient in \\textbf{Systems Programming}, \\textbf{Operating Systems}, and \\textbf{Bash scripting} for automation. Skilled in \\textbf{debugging} across OS layers, and maintaining code quality through \\textbf{pytest}. Enthusiastic about leveraging \\textbf{AI-assisted tools} for enhanced productivity and validation.",
+    "experience": [
+        {
+            "title": "Software Engineer",
+            "dates": "December 2025 -- Present",
+            "company": "Reddoorz",
+            "location": "Noida, India",
+            "bullets": [
+                "Spearheaded the system-level architecture of \\textbf{\"Redbooks\"}, a mission-critical financial ledger platform facilitating automated accounting and auditing for over \\textbf{\\$5M+ in monthly transactions}.",
+                "Engineered complex \\textbf{Python modules} to encapsulate \"posting criteria logic,\" automating the generation of \\textbf{AR/AP Invoices, Journal Entries, and Credit Memos} with strict \\textbf{ACID compliance}.",
+                "Designed resilient \\textbf{ETL pipelines} using \\textbf{Python automation tools} to synchronize \\textbf{50,000+ daily records} from mid-office servers to the Redbooks, ensuring 99.9\\% data consistency.",
+                "Optimized \\textbf{PostgreSQL} performance via compound indexing and query refactoring, reducing average query execution time by \\textbf{35\\%} during peak loads.",
+                "Championed \\textbf{Test-Driven Development (TDD)} by implementing comprehensive \\textbf{pytest} test suites, achieving \\textbf{90\\% code coverage} and significantly reducing production bugs."
+            ]
+        },
+        {
+            "title": "Software Engineer Intern",
+            "dates": "August 2025 -- November 2025",
+            "company": "Reddoorz",
+            "location": "Noida, India",
+            "bullets": [
+                "Architected a \\textbf{Smart Budget Management System} for \\textbf{Linux platforms}, devising a custom \\textbf{Weighted Moving Average (WMA)} forecasting formula to predict expected billing with \\textbf{92\\% accuracy}.",
+                "Engineered granular \\textbf{Role-Based Access Control (RBAC)}, defining distinct dashboard views and permissions for \\textbf{Super Admins, CEOs, and Managers} to oversee budget allotments.",
+                "Implemented \\textbf{Smart Audit Logs} for compliance and integrated \\textbf{automated email alerts} via \\textbf{Python} to notify stakeholders of projected budget overruns, cutting excess spend by 15\\%.",
+                "Designed interactive \\textbf{financial visualizations} to display real-time spending trends, optimizing \\textbf{data structure} aggregations to handle complex reporting data efficiently."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "Linux System Toolkit (Monitoring \\& Debugging)",
+            "tech": "C++, Python, Linux OS, Bash, Syscalls, GDB, Valgrind",
+            "bullets": [
+                "Developed a \\textbf{C++} based \\textbf{Linux system} utility, leveraging \\textbf{kernel interfaces} to monitor filesystem activity and diagnose performance bottlenecks.",
+                "Implemented \\textbf{Python} and \\textbf{Bash scripts} for \\textbf{automated system diagnostics} and workflow orchestration, reducing debugging cycles by \\textbf{30\\%} efficiently.",
+                "Integrated advanced \\textbf{debugging tools} (GDB, Valgrind) for deep analysis, ensuring robust system stability and reliability across \\textbf{Linux environments}."
+            ]
+        },
+        {
+            "title": "Automated Deployment \\& Testing Framework",
+            "tech": "Python, C++, Linux, Bash, Docker, Pytest, CI/CD",
+            "bullets": [
+                "Engineered a \\textbf{Python}-based framework for \\textbf{automated system packaging} and deployment across diverse \\textbf{Linux environments}, streamlining release cycles by \\textbf{25\\%} per release.",
+                "Developed comprehensive \\textbf{pytest} suites and \\textbf{C++} unit tests for critical system components, achieving \\textbf{95\\% code coverage} and improving system stability.",
+                "Utilized \\textbf{Bash scripts} and \\textbf{Docker} for CI/CD integration, automating build and testing workflows to accelerate development lifecycle by \\textbf{15\\%}."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "label": "Languages",
+            "value": "C++, Ruby, JavaScript (ES6+), Python, Rust, SQL"
+        },
+        {
+            "label": "Backend Frameworks",
+            "value": "Ruby on Rails, Node.js, Express.js, Sidekiq"
+        },
+        {
+            "label": "Databases \\& Caching",
+            "value": "PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch"
+        },
+        {
+            "label": "Tools \\& DevOps",
+            "value": "Git, GitHub, Docker, AWS (S3), Postman, Linux, CI/CD, WebSockets"
+        },
+        {
+            "label": "Core Concepts",
+            "value": "Data Structures \\& Algorithms, REST APIs, MVC Architecture, System Design, OOPs"
+        }
+    ],
+    "achievements": [
+        "\\textbf{Global Rank Top 11\\%} on LeetCode (Rating: 1714), solving \\textbf{800+} algorithmic problems across platforms.",
+        "\\textbf{CodeChef 3-Star Coder} (Rating: 1730), ranked in the top tier of competitive programmers globally.",
+        "Successfully completed the NPTEL \\textbf{Ethical Hacking} course coordinated by IIT Kharagpur.",
+        "Topped the \\textbf{Cognitive Psychology} course coordinated by IIT Guwahati, highlighting analytical versatility."
+    ]
+}

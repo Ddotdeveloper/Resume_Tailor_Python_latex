@@ -12,66 +12,68 @@
 "EDU_CGPA": "8.07",
 "EDU_LOCATION": "New Delhi, India",
 
-"SUMMARY": "Results-driven Software Engineer with expertise in systems development using \\textbf{C++ programming} and \\textbf{Python scripting}. Proven experience in the \\textbf{Platform Systems} domain, building scalable \\textbf{Linux-based infrastructure} and reliable system software components handling high-volume workloads. Proficient in \\textbf{Systems Programming}, \\textbf{Operating Systems}, and \\textbf{Bash automation scripting}. Passionate about debugging complex \\textbf{Linux subsystems} and improving system reliability through \\textbf{automated testing} and efficient concurrency handling techniques.",
+"SUMMARY": "Results-driven Software Engineer with expertise in systems development using \\textbf{C++ programming} and \\textbf{Python scripting}. Proven experience in the \\textbf{Platform} domain, building scalable \\textbf{Linux systems} and infrastructure-level software components handling production diagnostics. Proficient in \\textbf{Systems Programming}, \\textbf{Operating Systems}, and \\textbf{Bash scripting automation}. Passionate about debugging complex issues through \\textbf{Test-Driven Development (TDD)} and applying OS fundamentals to solve concurrency and performance challenges.",
 
 "experience": [
-    {
-    "title": "Software Engineer",
-    "dates": "December 2025 -- Present",
-    "company": "Reddoorz",
-    "location": "Noida, India",
-    "bullets": [
-        "Spearheading the system-level architecture of \\textbf{\"Redbooks\"}, a mission-critical financial ledger platform facilitating automated accounting and auditing for over \\textbf{\\$5M+ in monthly transactions}.",
-        "Engineered complex \\textbf{Python modules} to encapsulate \"posting criteria logic,\" automating the generation of \\textbf{AR/AP Invoices, Journal Entries, and Credit Memos} with strict \\textbf{ACID compliance}.",
-        "Designed resilient \\textbf{ETL pipelines} using \\textbf{Python automation tools} to synchronize \\textbf{50,000+ daily records} from mid-office servers to the Redbooks, ensuring 99.9\\% data consistency.",
-        "Debugged \\textbf{Linux-based production issues} across services and optimized \\textbf{PostgreSQL} queries, reducing execution latency by \\textbf{35\\%} under peak workloads."
-    ]
-    },
-    {
-    "title": "Software Engineer Intern",
-    "dates": "August 2025 -- November 2025",
-    "company": "Reddoorz",
-    "location": "Noida, India",
-    "bullets": [
-        "Architected a \\textbf{Smart Budget Management System} for Linux platforms, designing efficient \\textbf{data processing algorithms} to predict billing trends with \\textbf{92\\% accuracy}.",
-        "Engineered granular \\textbf{Role-Based Access Control (RBAC)}, defining distinct dashboard views and permissions for \\textbf{Super Admins, CEOs, and Managers} to oversee budget allotments."
-    ]
-    }
+{
+"title": "Software Engineer",
+"dates": "December 2025 -- Present",
+"company": "Reddoorz",
+"location": "Noida, India",
+"bullets": [
+"Spearheading the system-level architecture of \\textbf{\"Redbooks\"}, a mission-critical financial ledger platform facilitating automated accounting and auditing for over \\textbf{\\$5M+ in monthly transactions}.",
+"Engineered complex \\textbf{Python modules} to encapsulate \"posting criteria logic,\" automating the generation of \\textbf{AR/AP Invoices, Journal Entries, and Credit Memos} with strict \\textbf{data consistency guarantees}.",
+"Designed resilient \\textbf{data pipelines} using \\textbf{Python automation tools} to synchronize \\textbf{50,000+ daily records} from distributed systems to the Redbooks, ensuring reliable processing.",
+"Optimized \\textbf{PostgreSQL} performance via compound indexing and query refactoring, reducing average query execution time by \\textbf{35\\%} under high system load.",
+"Championed \\textbf{Test-Driven Development (TDD)} by implementing comprehensive \\textbf{pytest} test suites, achieving \\textbf{90\\% code coverage} and improving debugging efficiency."
+]
+},
+{
+"title": "Software Engineer Intern",
+"dates": "August 2025 -- November 2025",
+"company": "Reddoorz",
+"location": "Noida, India",
+"bullets": [
+"Architected a \\textbf{Linux-based system utility} for budget analysis, devising a custom \\textbf{Weighted Moving Average (WMA)} forecasting formula to predict expected billing with \\textbf{92\\% accuracy}.",
+"Engineered granular \\textbf{Role-Based Access Control (RBAC)}, defining distinct dashboard views and permissions for \\textbf{Super Admins, CEOs, and Managers} to monitor system metrics.",
+"Implemented \\textbf{system audit logs} for debugging and integrated \\textbf{automated alerts} via \\textbf{Python} to notify stakeholders of anomalies, reducing excess spend by 15\\%.",
+"Designed interactive \\textbf{system dashboards} to display real-time usage trends, optimizing \\textbf{data structure} aggregations to handle complex system data efficiently."
+]
+}
 ],
 
 "projects": [
-    {
-    "title": "LinuxSysOps (System Monitoring and Debugging Tool)",
-    "tech": "C++, Python, Linux OS, Bash, Networking",
-    "bullets": [
-        "Developed a systems-level monitoring tool using \\textbf{C++} to track \\textbf{process scheduling, memory usage, and I/O operations} across Linux environments.",
-        "Built \\textbf{Python and Bash automation scripts} to parse system logs and detect anomalies, reducing debugging time by \\textbf{45\\%} in high-load scenarios.",
-        "Integrated \\textbf{network and filesystem diagnostics} to analyze real-time system behavior, improving reliability and fault detection in distributed setups."
-    ]
-    },
-    {
-    "title": "FileStack (Custom Storage and Filesystem Simulator)",
-    "tech": "C++, Python, Linux OS, Bash, ext4",
-    "bullets": [
-        "Designed a \\textbf{custom filesystem simulator} using \\textbf{C++}, implementing core concepts like \\textbf{inode structures, block allocation, and caching mechanisms}.",
-        "Implemented \\textbf{Linux-based testing utilities} with \\textbf{Python} to simulate concurrent file operations and validate consistency under load.",
-        "Optimized \\textbf{read/write performance} using caching strategies, improving throughput and ensuring data integrity across simulated storage layers."
-    ]
-    }
+{
+"title": "Linux Storage Analyzer (Filesystem Debugging Tool)",
+"tech": "C++, Python, Linux OS, Bash, ext4",
+"bullets": [
+"Developed a systems-level storage analyzer using \\textbf{C++}, interacting with \\textbf{Linux kernel interfaces} to monitor filesystem behavior and detect inconsistencies in storage layers.",
+"Built an \\textbf{automated debugging framework} using \\textbf{Python} and \\textbf{Bash}, reducing system-level issue diagnosis time by \\textbf{40\\%} across multiple environments.",
+"Implemented permission-aware modules using \\textbf{Linux} and \\textbf{ext4} semantics, ensuring reliable data handling and isolation across system components."
+]
+},
+{
+"title": "Process Monitor (Linux Systems Performance Tool)",
+"tech": "Python, C++, Linux OS, Bash, pytest",
+"bullets": [
+"Engineered a high-concurrency \\textbf{Linux systems tool} to monitor OS processes, using \\textbf{Python} scripts and \\textbf{Bash} to track and analyze up to 1,000 concurrent processes.",
+"Optimized \\textbf{process scheduling insights} using \\textbf{caching strategies} and enforced system stability through efficient \\textbf{C++} data structures."
+]
+}
 ],
 
 "skills": [
-    {"label": "Languages", "value": "C++, Ruby, JavaScript (ES6+), Python, Rust, SQL"},
-    {"label": "Backend Frameworks", "value": "Ruby on Rails, Node.js, Express.js, Sidekiq"},
-    {"label": "Databases \\& Caching", "value": "PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch"},
-    {"label": "Tools \\& DevOps", "value": "Git, GitHub, Docker, AWS (S3), Postman, Linux, CI/CD, WebSockets"},
-    {"label": "Core Concepts", "value": "Data Structures \\& Algorithms, REST APIs, MVC Architecture, System Design, OOPs"}
+{"label": "Languages", "value": "C++, Ruby, JavaScript (ES6+), Python, Rust, SQL"},
+{"label": "Backend Frameworks", "value": "Ruby on Rails, Node.js, Express.js, Sidekiq"},
+{"label": "Databases \\& Caching", "value": "PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch"},
+{"label": "Tools \\& DevOps", "value": "Git, GitHub, Docker, AWS (S3), Postman, Linux, CI/CD, WebSockets"},
+{"label": "Core Concepts", "value": "Data Structures \\& Algorithms, REST APIs, MVC Architecture, System Design, OOPs"}
 ],
 
 "achievements": [
-    "\\textbf{Global Rank Top 11\\%} on LeetCode (Rating: 1714), solving \\textbf{800+} algorithmic problems across platforms.",
-    "\\textbf{CodeChef 3-Star Coder} (Rating: 1730), ranked in the top tier of competitive programmers globally.",
-    "Successfully completed the NPTEL \\textbf{Ethical Hacking} course coordinated by IIT Kharagpur.",
-    "Topped the \\textbf{Cognitive Psychology} course coordinated by IIT Guwahati, highlighting analytical versatility."
+"\\textbf{Global Rank Top 11\\%} on LeetCode (Rating: 1714), solving \\textbf{800+} algorithmic problems across platforms.",
+"\\textbf{CodeChef 3-Star Coder} (Rating: 1730), ranked in the top tier of competitive programmers globally.",
+"Successfully completed the NPTEL \\textbf{Ethical Hacking} course coordinated by IIT Kharagpur.",
+"Topped the \\textbf{Cognitive Psychology} course coordinated by IIT Guwahati, highlighting analytical versatility."
 ]
 }

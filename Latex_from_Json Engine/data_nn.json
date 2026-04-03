@@ -1,0 +1,87 @@
+{
+    "NAME": "Divay Aggarwal",
+    "PHONE": "+91 9588524463",
+    "EMAIL": "divay958@gmail.com",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/divay060203/",
+    "GITHUB_URL": "https://github.com/Ddotdeveloper",
+    "LEETCODE_URL": "https://leetcode.com/divay_garg/",
+    "EDU_INSTITUTION": "Netaji Subhas University of Technology",
+    "EDU_DATES": "January 2021 -- May 2025",
+    "EDU_DEGREE": "B.Tech in Electronics \\& Communication (AI \\& ML)",
+    "EDU_CGPA": "8.07",
+    "EDU_LOCATION": "New Delhi, India",
+    "SUMMARY": "Results-driven \\textbf{Systems Software Engineer} with strong fundamentals in \\textbf{Operating Systems}, \\textbf{Data Structures}, and \\textbf{Systems Programming}. Expertise in building \\textbf{Linux-based foundations} and infrastructure software using \\textbf{Python} and \\textbf{C++}, tailored for platform environments. Proven experience in architecting scalable, high-performance \\textbf{Linux systems} and automating system-level tasks. Eager to contribute to large-scale infrastructure operations, focusing on robust \\textbf{system-level behavior} and efficient resource management.",
+    "experience": [
+        {
+            "title": "Software Engineer",
+            "dates": "December 2025 -- Present",
+            "company": "Reddoorz",
+            "location": "Noida, India",
+            "bullets": [
+                "Spearheaded the \\textbf{platform architecture} of \\textbf{\"Redbooks\"}, a mission-critical financial ledger system facilitating automated accounting and auditing for over \\textbf{\\$5M+ in monthly transactions}.",
+                "Engineered robust \\textbf{Python modules} encapsulating core \\textbf{system logic}, automating \\textbf{AR/AP Invoices, Journal Entries, and Credit Memos} generation with strict \\textbf{ACID compliance}.",
+                "Designed resilient \\textbf{ETL pipelines} using \\textbf{Python automation} for synchronizing \\textbf{50,000+ daily records} from mid-office servers to Redbooks, ensuring 99.9\\% data consistency.",
+                "Optimized \\textbf{PostgreSQL} performance via compound indexing and query refactoring, reducing average query execution time by \\textbf{35\\%} during peak loads.",
+                "Championed \\textbf{Test-Driven Development (TDD)} by implementing comprehensive \\textbf{pytest} test suites, achieving \\textbf{90\\% code coverage} and significantly reducing production bugs."
+            ]
+        },
+        {
+            "title": "Software Engineer Intern",
+            "dates": "August 2025 -- November 2025",
+            "company": "Reddoorz",
+            "location": "Noida, India",
+            "bullets": [
+                "Architected a \\textbf{system-level Budget Management} tool for \\textbf{Linux platforms}, devising a custom \\textbf{Weighted Moving Average (WMA)} formula to predict billing with \\textbf{92\\% accuracy}.",
+                "Engineered granular \\textbf{Role-Based Access Control (RBAC)}, defining distinct dashboard views and permissions for \\textbf{Super Admins, CEOs, and Managers} to oversee budget allotments.",
+                "Implemented \\textbf{robust Audit Logs} for compliance and integrated \\textbf{automated email alerts} via \\textbf{Python} to notify stakeholders of budget overruns, cutting excess spend by 15\\%.",
+                "Designed interactive \\textbf{performance visualizations} for real-time spending trends, optimizing \\textbf{data structure} aggregations to handle complex reporting data efficiently."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "Custom Linux Kernel Module for Storage Analysis",
+            "tech": "C++, Linux Kernel, Python, Bash, OS Internals, ext4",
+            "bullets": [
+                "Developed a \\textbf{custom Linux kernel module} using \\textbf{C++} for real-time storage analytics, leveraging \\textbf{kernel interfaces} to monitor \\textbf{ext4 filesystem} behavior in virtualized setups.",
+                "Implemented an \\textbf{automated system diagnostics} tool using \\textbf{Python} and \\textbf{Bash}, offloading intensive analysis tasks to reduce system troubleshooting times by \\textbf{40\\%}."
+            ]
+        },
+        {
+            "title": "Infrastructure Performance Monitoring System",
+            "tech": "Python, C++, Linux OS, Bash, Systems Programming, Data Structures",
+            "bullets": [
+                "Developed \\textbf{system-level performance monitors} for \\textbf{Linux environments} using \\textbf{Python} and \\textbf{C++}, handling \\textbf{1,000+ concurrent processes} and optimizing OS operations during load tests.",
+                "Optimized \\textbf{filesystem} performance using \\textbf{caching strategies} and enforced data integrity via \\textbf{C++ algorithms} for system reliability."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "label": "Languages",
+            "value": "C++, Ruby, JavaScript (ES6+), Python, Rust, SQL"
+        },
+        {
+            "label": "Backend Frameworks",
+            "value": "Ruby on Rails, Node.js, Express.js, Sidekiq"
+        },
+        {
+            "label": "Databases \\& Caching",
+            "value": "PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch"
+        },
+        {
+            "label": "Tools \\& DevOps",
+            "value": "Git, GitHub, Docker, AWS (S3), Postman, Linux, CI/CD, WebSockets"
+        },
+        {
+            "label": "Core Concepts",
+            "value": "Data Structures \\& Algorithms, \\textbf{Systems Programming}, System Design, OOPs, REST APIs"
+        }
+    ],
+    "achievements": [
+        "\\textbf{Global Rank Top 11\\%} on LeetCode (Rating: 1714), solving \\textbf{800+} algorithmic problems across platforms.",
+        "\\textbf{CodeChef 3-Star Coder} (Rating: 1730), ranked in the top tier of competitive programmers globally.",
+        "Successfully completed the NPTEL \\textbf{Ethical Hacking} course coordinated by IIT Kharagpur.",
+        "Topped the \\textbf{Cognitive Psychology} course coordinated by IIT Guwahati, highlighting analytical versatility."
+    ]
+}
