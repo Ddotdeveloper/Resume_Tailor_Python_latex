@@ -2,27 +2,218 @@
 <html>
 <head>
     <style>
-        body { width: 320px; padding: 15px; font-family: Arial, sans-serif; }
-        input, button, textarea { width: 100%; padding: 8px; margin-top: 10px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        #output { margin-top: 15px; font-size: 12px; background: #f4f4f4; padding: 10px; border-radius: 4px; display: none; }
-        code { color: #d63384; font-family: monospace; display: block; margin-top: 5px; }
-        /* Hidden by default */
-        #manualJd { display: none; resize: vertical; } 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 360px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .header h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.3px;
+        }
+        .header .status-dot {
+            margin-left: auto;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+        .header .status-dot.online { background: #51cf66; }
+        .content { padding: 16px 20px; }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #495057;
+            flex-shrink: 0;
+        }
+        .field-group { margin-bottom: 10px; }
+        .field-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 4px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            background: #fff;
+        }
+        input:focus, textarea:focus {
+            border-color: #4dabf7;
+            box-shadow: 0 0 0 3px rgba(77,171,247,0.15);
+        }
+        input::placeholder, textarea::placeholder { color: #adb5bd; }
+        textarea { resize: vertical; min-height: 60px; }
+        #manualJd { display: none; }
+        .btn {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0f3460, #1a1a2e);
+            color: #fff;
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15,52,96,0.3);
+        }
+        .btn-primary:active:not(:disabled) { transform: translateY(0); }
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #output {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            display: none;
+        }
+        #output.success {
+            display: block;
+            background: #d3f9d8;
+            color: #2b8a3e;
+            border: 1px solid #b2f2bb;
+        }
+        #output.error {
+            display: block;
+            background: #fff5f5;
+            color: #c92a2a;
+            border: 1px solid #ffe3e3;
+        }
+        #output.info {
+            display: block;
+            background: #e7f5ff;
+            color: #1864ab;
+            border: 1px solid #d0ebff;
+        }
+        #output .cmd {
+            display: block;
+            background: rgba(0,0,0,0.06);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 11px;
+            margin-top: 6px;
+            word-break: break-all;
+            color: #1a1a2e;
+        }
+        #output .cmd-label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+        .footer {
+            padding: 12px 20px;
+            border-top: 1px solid #e9ecef;
+            font-size: 11px;
+            color: #adb5bd;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h3>Resume Tailor</h3>
-    <p style="font-size: 12px;">1. Highlight JD on the page.<br>2. Enter company name.<br>3. Click Generate.</p>
-    
-    <input type="text" id="companyName" placeholder="e.g., Nasuni">
-    
-    <textarea id="manualJd" rows="5" placeholder="Auto-extract blocked! Paste the JD here..."></textarea>
-    
-    <button id="generateBtn">Extract JD & Generate Prompt</button>
-    
-    <div id="output"></div>
+    <div class="header">
+        <div class="header-icon">&#9997;</div>
+        <h1>Resume Tailor</h1>
+        <div class="status-dot" id="statusDot" title="Server status"></div>
+    </div>
+
+    <div class="content">
+        <div class="steps">
+            <div class="step"><span class="step-num">1</span> Highlight job description on the page</div>
+            <div class="step"><span class="step-num">2</span> Enter the company name</div>
+            <div class="step"><span class="step-num">3</span> Click generate &mdash; we&rsquo;ll tailor your resume</div>
+        </div>
+
+        <div class="field-group">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" placeholder="e.g., Google">
+        </div>
+
+        <div class="field-group">
+            <textarea id="manualJd" rows="4" placeholder="Auto-extraction blocked. Paste the job description here..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" id="generateBtn">
+            Extract JD &amp; Generate
+        </button>
+
+        <div id="output"></div>
+    </div>
+
+    <div class="footer">v1.0 &middot; Resume Tailor</div>
 
     <script src="popup.js"></script>
 </body>

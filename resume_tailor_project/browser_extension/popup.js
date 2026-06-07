@@ -1,79 +1,155 @@
-document.getElementById('generateBtn').addEventListener('click', async () => {
-    const companyName = document.getElementById('companyName').value.trim();
-    const manualJdBox = document.getElementById('manualJd');
+const companyInput = document.getElementById('companyName');
+const manualJdBox = document.getElementById('manualJd');
+const outputDiv = document.getElementById('output');
+const generateBtn = document.getElementById('generateBtn');
+const statusDot = document.getElementById('statusDot');
+
+let isLoading = false;
+
+function setLoading(state) {
+    isLoading = state;
+    generateBtn.disabled = state;
+    generateBtn.innerHTML = state
+        ? '<span class="spinner"></span> Generating...'
+        : 'Extract JD &amp; Generate';
+}
+
+function showOutput(message, type) {
+    outputDiv.className = type;
+    outputDiv.innerHTML = message;
+}
+
+function downloadBase64(b64, filename, mimeType) {
+    const byteChars = atob(b64);
+    const bytes = new Uint8Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) bytes[i] = byteChars.charCodeAt(i);
+    const blob = new Blob([bytes], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+checkServer();
+
+async function checkServer() {
+    try {
+        const resp = await fetch('http://127.0.0.1:5000/generate', { method: 'OPTIONS' });
+        if (resp.ok || resp.status === 405) {
+            statusDot.className = 'status-dot online';
+            statusDot.title = 'Server is running';
+        }
+    } catch {
+        statusDot.className = 'status-dot';
+        statusDot.title = 'Server is offline';
+    }
+}
+
+generateBtn.addEventListener('click', async () => {
+    const companyName = companyInput.value.trim();
     const manualJdText = manualJdBox.value.trim();
-    const outputDiv = document.getElementById('output');
-    
+
     if (!companyName) {
-        alert("Please enter a company name.");
+        showOutput('Please enter a company name.', 'error');
+        companyInput.focus();
         return;
     }
 
-    let finalJobDescription = "";
+    if (isLoading) return;
+    setLoading(true);
+    showOutput('', '');
+    manualJdBox.style.display = 'none';
 
-    // If the user already pasted text into the fallback box, use that immediately
+    let finalJobDescription = '';
+
     if (manualJdText) {
         finalJobDescription = manualJdText;
-        sendToServer(companyName, finalJobDescription, outputDiv);
+        await sendToServer(companyName, finalJobDescription);
+        setLoading(false);
         return;
     }
 
-    // Otherwise, try to auto-extract the highlighted text
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    try {
+        let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: getSelectedText,
-    }, (injectionResults) => {
-        // Check if extraction worked
-        if (injectionResults && injectionResults[0] && injectionResults[0].result) {
-            finalJobDescription = injectionResults[0].result;
-            sendToServer(companyName, finalJobDescription, outputDiv);
-        } else {
-            // IF EXTRACTION FAILS: Show the manual paste box and alert the user
-            manualJdBox.style.display = "block";
-            outputDiv.style.display = "none";
-            alert("This website blocks auto-extraction. Please copy the Job Description, paste it into the new text box in this popup, and click Generate again.");
-        }
-    });
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: getSelectedText,
+        }, async (injectionResults) => {
+            if (injectionResults && injectionResults[0] && injectionResults[0].result) {
+                finalJobDescription = injectionResults[0].result;
+                await sendToServer(companyName, finalJobDescription);
+            } else {
+                manualJdBox.style.display = 'block';
+                manualJdBox.focus();
+                showOutput(
+                    'Auto-extraction blocked on this page. Paste the job description above and click Generate again.',
+                    'info'
+                );
+            }
+            setLoading(false);
+        });
+    } catch (err) {
+        showOutput('Could not access the active tab. Try pasting the JD manually.', 'error');
+        manualJdBox.style.display = 'block';
+        setLoading(false);
+    }
 });
 
-// The extraction function
 function getSelectedText() {
     return window.getSelection().toString();
 }
 
-// The server communication function
-async function sendToServer(companyName, jobDescription, outputDiv) {
-    outputDiv.style.display = "block";
-    outputDiv.innerText = "Sending to local server...";
+async function sendToServer(companyName, jobDescription) {
+    showOutput('Sending to server...', 'info');
 
     try {
         const response = await fetch('http://127.0.0.1:5000/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                company_name: companyName, 
-                job_description: jobDescription 
+            body: JSON.stringify({
+                company_name: companyName,
+                job_description: jobDescription
             })
         });
-        
+
         const data = await response.json();
 
         if (response.ok) {
-            outputDiv.innerHTML = `
-                <span style="color: green;"><b>Success!</b> File saved.</span><br><br>
-                <b>Terminal Commands:</b>
-                <code>${data.touch_command}</code>
-                <code>${data.python_command}</code>
-            `;
-            // Hide the manual box again if it was successful
-            document.getElementById('manualJd').style.display = "none";
-            document.getElementById('manualJd').value = "";
+            let html = `<strong style="color:#2b8a3e">&#10003; Success!</strong> Resume tailored for <strong>${companyName}</strong>.`;
+
+            if (data.pdf_base64) {
+                html += `<br><br><button class="btn btn-primary" id="downloadPdfBtn" style="font-size:13px;padding:8px;">&#11015; Download PDF</button>`;
+                html += `<div style="font-size:11px;color:#6c757d;margin-top:4px;">${data.pdf_filename}</div>`;
+            }
+            if (data.tex_base64) {
+                html += `<br><button class="btn btn-primary" id="downloadTexBtn" style="font-size:13px;padding:8px;margin-top:4px;">&#11015; Download LaTeX (.tex)</button>`;
+                html += `<div style="font-size:11px;color:#6c757d;margin-top:4px;">${data.tex_filename}</div>`;
+            }
+            if (!data.pdf_base64) {
+                html += `<br><span style="font-size:12px;color:#6c757d;">JSON saved as <code>${data.json_file}</code></span>`;
+            }
+
+            showOutput(html, 'success');
+
+            if (data.pdf_base64) {
+                document.getElementById('downloadPdfBtn').addEventListener('click', () => downloadBase64(data.pdf_base64, data.pdf_filename, 'application/pdf'));
+            }
+            if (data.tex_base64) {
+                document.getElementById('downloadTexBtn').addEventListener('click', () => downloadBase64(data.tex_base64, data.tex_filename, 'text/plain'));
+            }
+
+            manualJdBox.style.display = 'none';
+            manualJdBox.value = '';
         } else {
-            outputDiv.innerText = `Error: ${data.error}`;
+            showOutput(`Error: ${data.error || 'Something went wrong'}`, 'error');
         }
-    } catch (error) {
-        outputDiv.innerText = "Error connecting to backend. Is your Python Flask server running?";
+    } catch {
+        showOutput(
+            'Could not reach the backend. Make sure your Flask server is running (<code>python server.py</code>).',
+            'error'
+        );
     }
 }

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Resume Prompt Generator",
+  "name": "Resume Tailor",
   "version": "1.0",
   "description": "Extracts job descriptions to generate tailor-made resume prompts via local server.",
   "permissions": ["activeTab", "scripting"],
