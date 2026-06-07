@@ -3,7 +3,7 @@
   "name": "Resume Tailor",
   "version": "1.0",
   "description": "Extracts job descriptions to generate tailor-made resume prompts via local server.",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "action": {
     "default_popup": "popup.html"
   }

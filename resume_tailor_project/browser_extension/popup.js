@@ -3,8 +3,21 @@ const manualJdBox = document.getElementById('manualJd');
 const outputDiv = document.getElementById('output');
 const generateBtn = document.getElementById('generateBtn');
 const statusDot = document.getElementById('statusDot');
+const configBtn = document.getElementById('configBtn');
+const configPanel = document.getElementById('configPanel');
+const authTokenInput = document.getElementById('authToken');
+const saveTokenBtn = document.getElementById('saveTokenBtn');
+const tokenStatus = document.getElementById('tokenStatus');
 
 let isLoading = false;
+let authToken = '';
+
+chrome.storage.local.get('authToken', (result) => {
+    authToken = result.authToken || '';
+    if (authToken) {
+        authTokenInput.value = authToken;
+    }
+});
 
 function setLoading(state) {
     isLoading = state;
@@ -20,32 +33,53 @@ function showOutput(message, type) {
 }
 
 function downloadBase64(b64, filename, mimeType) {
-    const byteChars = atob(b64);
-    const bytes = new Uint8Array(byteChars.length);
-    for (let i = 0; i < byteChars.length; i++) bytes[i] = byteChars.charCodeAt(i);
-    const blob = new Blob([bytes], { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+        const byteChars = atob(b64);
+        const bytes = new Uint8Array(byteChars.length);
+        for (let i = 0; i < byteChars.length; i++) bytes[i] = byteChars.charCodeAt(i);
+        const blob = new Blob([bytes], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (e) {
+        showOutput('Error downloading file. Please try again.', 'error');
+    }
 }
 
 checkServer();
 
 async function checkServer() {
     try {
-        const resp = await fetch('http://127.0.0.1:5000/generate', { method: 'OPTIONS' });
-        if (resp.ok || resp.status === 405) {
+        const resp = await fetch('http://127.0.0.1:5001/health');
+        if (resp.ok) {
             statusDot.className = 'status-dot online';
             statusDot.title = 'Server is running';
+        } else {
+            statusDot.className = 'status-dot';
+            statusDot.title = 'Server is degraded';
         }
     } catch {
         statusDot.className = 'status-dot';
         statusDot.title = 'Server is offline';
     }
 }
+
+configBtn.addEventListener('click', () => {
+    configPanel.style.display = configPanel.style.display === 'none' ? 'block' : 'none';
+});
+
+saveTokenBtn.addEventListener('click', () => {
+    const token = authTokenInput.value.trim();
+    chrome.storage.local.set({ authToken: token }, () => {
+        authToken = token;
+        tokenStatus.textContent = 'Token saved';
+        tokenStatus.style.color = '#2b8a3e';
+        setTimeout(() => { tokenStatus.textContent = ''; }, 2000);
+    });
+});
 
 generateBtn.addEventListener('click', async () => {
     const companyName = companyInput.value.trim();
@@ -105,10 +139,15 @@ function getSelectedText() {
 async function sendToServer(companyName, jobDescription) {
     showOutput('Sending to server...', 'info');
 
+    const headers = { 'Content-Type': 'application/json' };
+    if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+    }
+
     try {
-        const response = await fetch('http://127.0.0.1:5000/generate', {
+        const response = await fetch('http://127.0.0.1:5001/generate', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: headers,
             body: JSON.stringify({
                 company_name: companyName,
                 job_description: jobDescription
@@ -143,6 +182,15 @@ async function sendToServer(companyName, jobDescription) {
 
             manualJdBox.style.display = 'none';
             manualJdBox.value = '';
+        } else if (response.status === 401) {
+            showOutput(
+                'Server requires authentication. Add your auth token in settings (gear icon).',
+                'error'
+            );
+            configPanel.style.display = 'block';
+            authTokenInput.focus();
+        } else if (response.status === 429) {
+            showOutput('Too many requests. Please wait a moment and try again.', 'error');
         } else {
             showOutput(`Error: ${data.error || 'Something went wrong'}`, 'error');
         }

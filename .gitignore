@@ -1,0 +1,28 @@
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+logs/
+*.log
+
+# Generated data files
+resume_tailor_project/data_*.json
+resume_tailor_project/python_backend/logs/
+
+# LaTeX output
+Latex_from_Json Engine/output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.aider*

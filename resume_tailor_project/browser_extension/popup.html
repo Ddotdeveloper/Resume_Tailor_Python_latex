@@ -42,7 +42,76 @@
             flex-shrink: 0;
         }
         .header .status-dot.online { background: #51cf66; }
+        .header-btn {
+            background: rgba(255,255,255,0.12);
+            border: none;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .header-btn:hover { background: rgba(255,255,255,0.2); }
         .content { padding: 16px 20px; }
+        .config-panel {
+            display: none;
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .config-panel label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 4px;
+        }
+        .config-panel .row {
+            display: flex;
+            gap: 6px;
+        }
+        .config-panel .row input {
+            flex: 1;
+            padding: 8px 10px;
+            border: 1.5px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: monospace;
+            outline: none;
+            background: #fff;
+        }
+        .config-panel .row input:focus {
+            border-color: #4dabf7;
+            box-shadow: 0 0 0 3px rgba(77,171,247,0.15);
+        }
+        .config-panel .row button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #0f3460;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .config-panel .row button:hover { background: #1a1a2e; }
+        .config-panel .hint {
+            font-size: 10px;
+            color: #868e96;
+            margin-top: 4px;
+        }
+        .config-panel .token-status {
+            font-size: 11px;
+            margin-top: 4px;
+        }
         .steps {
             display: flex;
             flex-direction: column;
@@ -187,10 +256,21 @@
     <div class="header">
         <div class="header-icon">&#9997;</div>
         <h1>Resume Tailor</h1>
+        <button class="header-btn" id="configBtn" title="Settings">&#9881;</button>
         <div class="status-dot" id="statusDot" title="Server status"></div>
     </div>
 
     <div class="content">
+        <div class="config-panel" id="configPanel">
+            <label for="authToken">Auth Token (if required by server)</label>
+            <div class="row">
+                <input type="text" id="authToken" placeholder="Paste your auth token">
+                <button id="saveTokenBtn">Save</button>
+            </div>
+            <div class="hint">Get this from your server administrator.</div>
+            <div class="token-status" id="tokenStatus"></div>
+        </div>
+
         <div class="steps">
             <div class="step"><span class="step-num">1</span> Highlight job description on the page</div>
             <div class="step"><span class="step-num">2</span> Enter the company name</div>
