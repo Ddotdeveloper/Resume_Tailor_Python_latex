@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -71,6 +71,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 TEMPLATE_PATH = os.path.join(BASE_DIR, "templates", "prompt_template.txt")
 LATEX_DIR = os.path.join(PROJECT_ROOT, "Latex_from_Json Engine")
+DEMO_DIR = os.path.join(PROJECT_ROOT, "demo")
 
 # ── Helpers ──────────────────────────────────────────────────
 
@@ -154,6 +155,11 @@ def generate_files(json_data, safe_name):
 
 
 # ── Routes ───────────────────────────────────────────────────
+
+@app.route("/")
+def serve_demo():
+    return send_from_directory(DEMO_DIR, "index.html")
+
 
 @app.route("/generate", methods=["POST"])
 @limiter.limit(RATE_LIMIT)

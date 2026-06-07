@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.5, pytest-9.0.3, pluggy-1.6.0 -- /opt/homebrew/opt/python@3.14/bin/python3.14
+cachedir: .pytest_cache
+rootdir: /Users/divay/Desktop/Project Stuff/Resume Tailor software
+plugins: locust-2.44.1, anyio-4.13.0
+collecting ... collected 12 items
+
+tests/test_api.py::test_health PASSED                                    [  8%]
+tests/test_api.py::test_generate_success PASSED                          [ 16%]
+tests/test_api.py::test_missing_company PASSED                           [ 25%]
+tests/test_api.py::test_missing_jd PASSED                                [ 33%]
+tests/test_api.py::test_invalid_chars PASSED                             [ 41%]
+tests/test_api.py::test_long_company PASSED                              [ 50%]
+tests/test_api.py::test_large_body PASSED                                [ 58%]
+tests/test_api.py::test_invalid_json PASSED                              [ 66%]
+tests/test_api.py::test_empty_body PASSED                                [ 75%]
+tests/test_api.py::test_method_not_allowed PASSED                        [ 83%]
+tests/test_api.py::test_health_degraded PASSED                           [ 91%]
+tests/test_api.py::test_auth_required PASSED                             [100%]
+
+============================= 12 passed in 16.51s ==============================

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Tailor - Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: #f0f2f5; color: #1a1a2e; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    color: #fff; width: 100%; padding: 32px 20px; text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.5px; }
+  .header p { margin-top: 8px; font-size: 14px; color: #a0aec0; }
+  .container { max-width: 640px; width: 100%; padding: 24px 20px; }
+  .card {
+    background: #fff; border-radius: 12px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 16px;
+  }
+  .card h2 { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block; font-size: 12px; font-weight: 600; color: #495057;
+    margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  input, textarea {
+    width: 100%; padding: 10px 12px; border: 1.5px solid #dee2e6;
+    border-radius: 8px; font-size: 14px; font-family: inherit;
+    outline: none; transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus { border-color: #4dabf7; box-shadow: 0 0 0 3px rgba(77,171,247,0.15); }
+  textarea { resize: vertical; min-height: 140px; }
+  .btn {
+    width: 100%; padding: 12px; border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    background: linear-gradient(135deg, #0f3460, #1a1a2e); color: #fff;
+    transition: all 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,52,96,0.3); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+    border-radius: 50%; animation: spin 0.6s linear infinite;
+    vertical-align: middle; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #output { display: none; margin-top: 16px; }
+  #output.show { display: block; }
+  .alert {
+    padding: 14px; border-radius: 8px; font-size: 13px; line-height: 1.5;
+  }
+  .alert.success { background: #d3f9d8; color: #2b8a3e; border: 1px solid #b2f2bb; }
+  .alert.error { background: #fff5f5; color: #c92a2a; border: 1px solid #ffe3e3; }
+  .alert.info { background: #e7f5ff; color: #1864ab; border: 1px solid #d0ebff; }
+  .download-row {
+    display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .download-btn {
+    flex: 1; min-width: 140px; padding: 10px; border-radius: 8px;
+    border: 1.5px solid #dee2e6; background: #fff; cursor: pointer;
+    font-size: 13px; font-weight: 600; text-align: center;
+    transition: all 0.2s; text-decoration: none; color: #1a1a2e;
+  }
+  .download-btn:hover { border-color: #0f3460; background: #f8f9fa; }
+  .filename { font-size: 11px; color: #868e96; margin-top: 2px; }
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+  }
+  .badge.online { background: #d3f9d8; color: #2b8a3e; }
+  .badge.offline { background: #fff5f5; color: #c92a2a; }
+  .footer {
+    margin-top: auto; padding: 20px; font-size: 12px; color: #868e96;
+    text-align: center; width: 100%;
+  }
+  .footer a { color: #0f3460; text-decoration: none; }
+  .url-input { margin-bottom: 14px; }
+  .url-input input { font-family: monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Resume Tailor</h1>
+  <p>Paste a job description &mdash; get a tailored resume in seconds</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="margin:0;">Try it</h2>
+      <span id="statusBadge" class="badge offline">offline</span>
+    </div>
+
+    <div class="url-input" style="display:none;">
+      <label>Backend URL</label>
+      <input type="text" id="backendUrl" value="" placeholder="http://localhost:5001">
+    </div>
+
+    <div class="field">
+      <label>Company Name</label>
+      <input type="text" id="companyName" placeholder="e.g. Google" required>
+    </div>
+
+    <div class="field">
+      <label>Job Description</label>
+      <textarea id="jobDescription" placeholder="Paste the full job description here..."></textarea>
+    </div>
+
+    <button class="btn" id="generateBtn">Generate Tailored Resume</button>
+
+    <div id="output">
+      <div class="alert" id="alertMessage"></div>
+      <div class="download-row" id="downloadRow"></div>
+    </div>
+  </div>
+
+  <div class="card" style="font-size:13px;color:#495057;line-height:1.6;">
+    <h2>How it works</h2>
+    <ol style="padding-left:18px;">
+      <li>Enter the company name and paste the job description</li>
+      <li>The AI tailors your resume JSON using Groq (LLaMA 3.3)</li>
+      <li>Download the PDF or LaTeX source of your tailored resume</li>
+    </ol>
+    <p style="margin-top:10px;font-size:12px;color:#868e96;">
+      The LaTeX engine is included. First request may take ~30s on free-tier hosting.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://github.com/Ddotdeveloper/Resume-Tailor" target="_blank">GitHub</a>
+</div>
+
+<script>
+const BACKEND_URL_KEY = 'resume_tailor_backend_url';
+
+function getBackendUrl() {
+  const val = document.getElementById('backendUrl').value.replace(/\/+$/, '');
+  return val || '';
+}
+
+function apiUrl(path) {
+  const base = getBackendUrl();
+  return base ? `${base}${path}` : path;
+}
+
+function setBackendUrl(url) {
+  document.getElementById('backendUrl').value = url;
+}
+
+const savedUrl = localStorage.getItem(BACKEND_URL_KEY);
+if (savedUrl) setBackendUrl(savedUrl);
+
+document.getElementById('backendUrl').addEventListener('change', () => {
+  localStorage.setItem(BACKEND_URL_KEY, getBackendUrl());
+  checkHealth();
+});
+
+const output = document.getElementById('output');
+const alertMsg = document.getElementById('alertMessage');
+const downloadRow = document.getElementById('downloadRow');
+const generateBtn = document.getElementById('generateBtn');
+const statusBadge = document.getElementById('statusBadge');
+
+async function checkHealth() {
+  try {
+    const r = await fetch(apiUrl('/health'));
+    statusBadge.textContent = r.ok ? 'online' : 'degraded';
+    statusBadge.className = 'badge ' + (r.ok ? 'online' : 'offline');
+  } catch {
+    statusBadge.textContent = 'offline';
+    statusBadge.className = 'badge offline';
+  }
+}
+
+checkHealth();
+setInterval(checkHealth, 30000);
+
+function showAlert(text, type) {
+  output.classList.add('show');
+  alertMsg.className = 'alert ' + type;
+  alertMsg.textContent = text;
+}
+
+function clearOutput() {
+  output.classList.remove('show');
+  alertMsg.textContent = '';
+  downloadRow.innerHTML = '';
+}
+
+function downloadBase64(b64, filename, mimeType) {
+  const byteChars = atob(b64);
+  const bytes = new Uint8Array(byteChars.length);
+  for (let i = 0; i < byteChars.length; i++) bytes[i] = byteChars.charCodeAt(i);
+  const blob = new Blob([bytes], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function addDownloadButton(b64, filename, mimeType, label) {
+  const btn = document.createElement('button');
+  btn.className = 'download-btn';
+  btn.innerHTML = `&#11015; ${label}<div class="filename">${filename}</div>`;
+  btn.addEventListener('click', () => downloadBase64(b64, filename, mimeType));
+  downloadRow.appendChild(btn);
+}
+
+generateBtn.addEventListener('click', async () => {
+  const companyName = document.getElementById('companyName').value.trim();
+  const jobDescription = document.getElementById('jobDescription').value.trim();
+
+  if (!companyName) { showAlert('Enter a company name.', 'error'); return; }
+  if (!jobDescription) { showAlert('Paste a job description.', 'error'); return; }
+
+  clearOutput();
+  generateBtn.disabled = true;
+  generateBtn.innerHTML = '<span class="spinner"></span> Generating...';
+  showAlert('Tailoring resume... (may take 30-60s)', 'info');
+
+  try {
+    const resp = await fetch(apiUrl('/generate'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company_name: companyName, job_description: jobDescription }),
+    });
+
+    const data = await resp.json();
+
+    if (resp.ok) {
+      showAlert(`Resume tailored for ${companyName}`, 'success');
+      if (data.pdf_base64) addDownloadButton(data.pdf_base64, data.pdf_filename, 'application/pdf', 'Download PDF');
+      if (data.tex_base64) addDownloadButton(data.tex_base64, data.tex_filename, 'text/plain', 'Download LaTeX');
+      if (!data.pdf_base64) {
+        const note = document.createElement('div');
+        note.style.cssText = 'margin-top:10px;font-size:12px;color:#868e96;';
+        note.textContent = 'PDF not available (LaTeX engine may be unavailable on this host).';
+        downloadRow.appendChild(note);
+      }
+    } else if (resp.status === 429) {
+      showAlert('Rate limited. Wait a moment and try again.', 'error');
+    } else {
+      showAlert(data.error || 'Something went wrong', 'error');
+    }
+  } catch {
+    showAlert('Cannot reach the backend. Check the URL or try again.', 'error');
+  } finally {
+    generateBtn.disabled = false;
+    generateBtn.innerHTML = 'Generate Tailored Resume';
+  }
+});
+</script>
+</body>
+</html>
