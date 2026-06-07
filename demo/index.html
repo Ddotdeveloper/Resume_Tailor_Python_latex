@@ -82,6 +82,21 @@
   .footer a { color: #0f3460; text-decoration: none; }
   .url-input { margin-bottom: 14px; }
   .url-input input { font-family: monospace; font-size: 12px; }
+  .toggle-btn {
+    background: none; border: none; color: #0f3460; font-size: 13px;
+    font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 4px;
+  }
+  .toggle-btn:hover { text-decoration: underline; }
+  .personal-section { border-top: 1px solid #dee2e6; margin-top: 16px; padding-top: 16px; }
+  .personal-section.collapsed { display: none; }
+  .row2 { display: flex; gap: 10px; }
+  .row2 .field { flex: 1; }
+  .btn-secondary {
+    padding: 8px 16px; border-radius: 6px; border: 1.5px solid #dee2e6;
+    background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; color: #495057;
+  }
+  .btn-secondary:hover { border-color: #0f3460; color: #0f3460; }
+  .save-row { display: flex; justify-content: flex-end; margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -113,6 +128,71 @@
       <textarea id="jobDescription" placeholder="Paste the full job description here..."></textarea>
     </div>
 
+    <button type="button" class="toggle-btn" id="togglePersonalBtn">&#9660; Configure Your Info</button>
+
+    <div class="personal-section collapsed" id="personalSection">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="pi_name" placeholder="e.g. John Doe">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" id="pi_phone" placeholder="+1 123 456 7890">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="pi_email" placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>LinkedIn URL</label>
+          <input type="url" id="pi_linkedin" placeholder="https://linkedin.com/in/...">
+        </div>
+        <div class="field">
+          <label>GitHub URL</label>
+          <input type="url" id="pi_github" placeholder="https://github.com/...">
+        </div>
+      </div>
+      <div class="field">
+        <label>LeetCode URL</label>
+        <input type="url" id="pi_leetcode" placeholder="https://leetcode.com/...">
+      </div>
+      <hr style="border:none;border-top:1px solid #f0f0f0;margin:12px 0;">
+      <div class="field">
+        <label>Institution</label>
+        <input type="text" id="pi_edu_inst" placeholder="e.g. MIT">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Degree</label>
+          <input type="text" id="pi_edu_degree" placeholder="B.S. in Computer Science">
+        </div>
+        <div class="field">
+          <label>CGPA / GPA</label>
+          <input type="text" id="pi_edu_cgpa" placeholder="3.8">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Dates</label>
+          <input type="text" id="pi_edu_dates" placeholder="Sep 2020 -- May 2024">
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input type="text" id="pi_edu_location" placeholder="Cambridge, MA">
+        </div>
+      </div>
+      <div class="field">
+        <label>Professional Summary</label>
+        <textarea id="pi_summary" placeholder="Brief summary of your background..." style="min-height:80px;"></textarea>
+      </div>
+      <div class="save-row">
+        <button type="button" class="btn-secondary" id="savePersonalBtn">&#128190; Save to Browser</button>
+      </div>
+    </div>
+
     <button class="btn" id="generateBtn">Generate Tailored Resume</button>
 
     <div id="output">
@@ -140,6 +220,12 @@
 
 <script>
 const BACKEND_URL_KEY = 'resume_tailor_backend_url';
+const PERSONAL_INFO_KEY = 'resume_tailor_personal_info';
+
+const PI_FIELDS = [
+  'pi_name', 'pi_phone', 'pi_email', 'pi_linkedin', 'pi_github', 'pi_leetcode',
+  'pi_edu_inst', 'pi_edu_degree', 'pi_edu_cgpa', 'pi_edu_dates', 'pi_edu_location', 'pi_summary'
+];
 
 function getBackendUrl() {
   const val = document.getElementById('backendUrl').value.replace(/\/+$/, '');
@@ -162,6 +248,54 @@ document.getElementById('backendUrl').addEventListener('change', () => {
   localStorage.setItem(BACKEND_URL_KEY, getBackendUrl());
   checkHealth();
 });
+
+// ── Personal Info Persistence ──
+
+function loadPersonalInfo() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PERSONAL_INFO_KEY) || '{}');
+    PI_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (saved[id]) el.value = saved[id];
+    });
+  } catch {}
+}
+
+function collectPersonalInfo() {
+  const info = {};
+  PI_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    const val = el.value.trim();
+    if (val) info[id] = val;
+  });
+  return info;
+}
+
+function savePersonalInfo() {
+  const info = collectPersonalInfo();
+  localStorage.setItem(PERSONAL_INFO_KEY, JSON.stringify(info));
+  showAlert('Personal info saved to browser', 'success');
+  setTimeout(() => { output.classList.remove('show'); }, 2000);
+}
+
+document.getElementById('savePersonalBtn').addEventListener('click', savePersonalInfo);
+loadPersonalInfo();
+
+// ── Collapsible ──
+
+const personalSection = document.getElementById('personalSection');
+const togglePersonalBtn = document.getElementById('togglePersonalBtn');
+let personalVisible = false;
+
+togglePersonalBtn.addEventListener('click', () => {
+  personalVisible = !personalVisible;
+  personalSection.classList.toggle('collapsed', !personalVisible);
+  togglePersonalBtn.innerHTML = personalVisible
+    ? '&#9650; Configure Your Info'
+    : '&#9660; Configure Your Info';
+});
+
+// ── Health ──
 
 const output = document.getElementById('output');
 const alertMsg = document.getElementById('alertMessage');
@@ -216,6 +350,35 @@ function addDownloadButton(b64, filename, mimeType, label) {
   downloadRow.appendChild(btn);
 }
 
+// ── Map UI field IDs ➝ personal_info keys ──
+
+const PI_FIELD_MAP = {
+  pi_name: 'NAME',
+  pi_phone: 'PHONE',
+  pi_email: 'EMAIL',
+  pi_linkedin: 'LINKEDIN_URL',
+  pi_github: 'GITHUB_URL',
+  pi_leetcode: 'LEETCODE_URL',
+  pi_edu_inst: 'EDU_INSTITUTION',
+  pi_edu_degree: 'EDU_DEGREE',
+  pi_edu_cgpa: 'EDU_CGPA',
+  pi_edu_dates: 'EDU_DATES',
+  pi_edu_location: 'EDU_LOCATION',
+  pi_summary: 'SUMMARY',
+};
+
+function buildPersonalInfoPayload() {
+  const payload = {};
+  PI_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    const val = el.value.trim();
+    if (val) payload[PI_FIELD_MAP[id]] = val;
+  });
+  return payload;
+}
+
+// ── Generate ──
+
 generateBtn.addEventListener('click', async () => {
   const companyName = document.getElementById('companyName').value.trim();
   const jobDescription = document.getElementById('jobDescription').value.trim();
@@ -228,11 +391,17 @@ generateBtn.addEventListener('click', async () => {
   generateBtn.innerHTML = '<span class="spinner"></span> Generating...';
   showAlert('Tailoring resume... (may take 30-60s)', 'info');
 
+  const body = {
+    company_name: companyName,
+    job_description: jobDescription,
+    personal_info: buildPersonalInfoPayload(),
+  };
+
   try {
     const resp = await fetch(apiUrl('/generate'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ company_name: companyName, job_description: jobDescription }),
+      body: JSON.stringify(body),
     });
 
     const data = await resp.json();

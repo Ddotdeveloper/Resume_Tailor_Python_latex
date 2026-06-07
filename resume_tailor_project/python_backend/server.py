@@ -178,6 +178,7 @@ def generate_resume():
 
     raw_company = data.get("company_name", "").strip()
     job_description = data.get("job_description", "").strip()
+    personal_info = data.get("personal_info", {}) or {}
     safe_name = sanitize_filename(raw_company)
 
     # Validate
@@ -197,11 +198,27 @@ def generate_resume():
         template_content = f.read()
 
     # Build prompt
-    final_prompt = (
-        template_content
-        .replace("{{Insert Here}}", job_description)
-        .replace("{company_name}", safe_name)
-    )
+    personal_defaults = {
+        "NAME": "Your Name",
+        "PHONE": "+1 123 456 7890",
+        "EMAIL": "you@example.com",
+        "LINKEDIN_URL": "https://linkedin.com/in/yourprofile",
+        "GITHUB_URL": "https://github.com/yourprofile",
+        "LEETCODE_URL": "https://leetcode.com/yourprofile",
+        "EDU_INSTITUTION": "Your University",
+        "EDU_DATES": "Graduation Year",
+        "EDU_DEGREE": "Your Degree",
+        "EDU_CGPA": "0.00",
+        "EDU_LOCATION": "City, Country",
+        "SUMMARY": "Experienced professional with a background in your field.",
+    }
+    user_info = {**personal_defaults, **personal_info}
+
+    final_prompt = template_content
+    for key, val in user_info.items():
+        final_prompt = final_prompt.replace("{{%s}}" % key, val)
+    final_prompt = final_prompt.replace("{{Insert Here}}", job_description)
+    final_prompt = final_prompt.replace("{company_name}", safe_name)
     final_prompt += (
         "\n\nCRITICAL INSTRUCTION: "
         "Return ONLY a valid JSON object matching the template above. "
