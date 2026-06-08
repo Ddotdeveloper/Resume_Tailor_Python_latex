@@ -1,13 +1,15 @@
 FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl ca-certificates && \
-    curl -fsSL https://tectonic.newton.systems/install | sh && \
+    curl ca-certificates \
+    texlive-latex-base texlive-latex-extra texlive-latex-recommended \
+    texlive-fonts-recommended texlive-pictures \
+    fonts-font-awesome && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY Latex_from_Json Engine/ Latex_from_Json Engine/
+COPY ["Latex_from_Json Engine/", "Latex_from_Json Engine/"]
 COPY resume_tailor_project/ resume_tailor_project/
 COPY demo/ demo/
 
@@ -22,4 +24,4 @@ WORKDIR /app/resume_tailor_project/python_backend
 
 EXPOSE 10000
 
-CMD gunicorn -w 2 -b 0.0.0.0:$PORT --timeout 120 server:app
+CMD gunicorn -w 2 -b "0.0.0.0:${PORT}" --timeout 120 server:app
